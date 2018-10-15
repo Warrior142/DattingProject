@@ -1,3 +1,24 @@
-<p>
-  emp works!
-</p>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="EmployeeNo">First</th>
+        <th scope="Name">Last</th>
+        <th scope="Job">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lstEmployee of employeesList">
+        <th scope="row">1</th>
+        <td>{{lstEmployee.employeeID}}</td>
+        <td>{{lstEmployee.name}}</td>
+        <td>{{lstEmployee.job}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="employee"> 
+    {{employee.name}}  {{employee.job}}  {{employee.employeeID}}
+</div>
