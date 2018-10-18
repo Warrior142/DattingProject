@@ -4,14 +4,20 @@ import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
 import { Constant } from "../shared/constant";
 import { catchError, map } from "rxjs/operators";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
   userToken: any;
-  constructor(private httpClient: HttpClient) {}
+  decodedToken: any;
+  constructor(
+    private httpClient: HttpClient,
+    private jwtHelper: JwtHelperService
+  ) {}
 
+  
   login(model: User): Observable<any> {
     return this.httpClient
       .post<any>(
@@ -25,6 +31,7 @@ export class AuthService {
           if (user && user.tokenString) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem("token", user.tokenString);
+            this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
             this.userToken = user.tokenString;
           }
           return user;
@@ -48,6 +55,12 @@ export class AuthService {
         catchError(this.handleError)
       );
   }
+
+  logeedIn() {
+    const token = this.userToken ? this.userToken : null;
+    return this.jwtHelper.isTokenExpired() ? false : true;
+  }
+
   private handleError(errorResponse: HttpErrorResponse) {
     if (errorResponse.error instanceof ErrorEvent) {
       console.error("Client Side Error:", errorResponse.error.message);
