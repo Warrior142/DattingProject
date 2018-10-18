@@ -8,18 +8,19 @@ import { catchError, map } from "rxjs/operators";
   providedIn: "root"
 })
 export class EmpService {
+  controller:string="api/values/";
   constructor(private httpClient: HttpClient) {}
 
   getEmployees(): Observable<Emp[]> {
     return this.httpClient
-      .get<Emp[]>(Constant.baseUrl + "GetValues")
+      .get<Emp[]>(Constant.baseUrl +this.controller+ "GetValues")
       .pipe(catchError(this.handleError));
   }
 
   getEmployeeById(id: number): Observable<Emp> {
     return this.httpClient
       .get<Emp>(
-        `${Constant.baseUrl + "GetValuesById"}/${id}`,
+        `${Constant.baseUrl +this.controller+ "GetValuesById"}/${id}`,
         Constant.httpHeaders
       )
       .pipe(catchError(this.handleError));
@@ -29,7 +30,7 @@ export class EmpService {
     // const newurl = `${url}?id=${id}`; // DELETE api/contact?id=42
     return this.httpClient
       .delete<void>(
-        `${Constant.baseUrl + "deleteEmployee"}/${id}`,
+        `${Constant.baseUrl +this.controller+ "deleteEmployee"}/${id}`,
         Constant.httpHeaders
       )
       .pipe(catchError(this.handleError));
@@ -38,7 +39,7 @@ export class EmpService {
   saveEmployee(employee: Emp): Observable<void> {
     return this.httpClient
       .post<void>(
-        `${Constant.baseUrl+"PostEmployees"}`,
+        `${Constant.baseUrl+this.controller+"PostEmployees"}`,
         employee,
         Constant.httpHeaders
       )
@@ -48,7 +49,7 @@ export class EmpService {
   updateEmployee(employee: Emp): Observable<void> {
     return this.httpClient
       .put<void>(
-        `${Constant.baseUrl+"UpdateEmployees"}`,
+        `${Constant.baseUrl+this.controller+"UpdateEmployees"}`,
         JSON.stringify(employee),
         Constant.httpHeaders
       )

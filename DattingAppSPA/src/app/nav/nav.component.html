@@ -1,0 +1,81 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+        aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Datting App</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Matches</a> </li>
+        <li><a href="#">Lists</a> </li>
+        <li><a href="#">Message</a> </li>
+      </ul>
+      <form *ngIf="!loggedIn()" #loginForm="ngForm" class="navbar-form navbar-right" (ngSubmit)="login(user)">
+        <div class="form-group">
+          <input type="text" #username="ngModel" placeholder="Email" class="form-control" name="username" required
+            [(ngModel)]="user.username">
+        </div>
+        <div class="form-group">
+          <input type="password" #password="ngModel" placeholder="Password" class="form-control" name="password"
+            required [(ngModel)]="user.password">
+        </div>
+        <button type="submit" [disabled]='!loginForm.valid' class="btn btn-success">Sign in</button>
+      </form>
+      <ul *ngIf="loggedIn()" class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome
+            User
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li style="cursor: pointer;"><a href="#" class="fa fa-user">Edit Profile</a></li>
+            <li role="separator" class="divider"></li>
+            <li style="cursor: pointer;"><a (click)="logout()" class="fa fa-sign-out">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!--/.navbar-collapse -->
+  </div>
+</nav>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br /><br /><br /><br /><!-- 
+<pre>
+  Form Valid:{{loginForm.valid}}
+  Form Touched:{{loginForm.touched}}
+  Form Dirty:{{loginForm.dirty}}
+  Form values:{{loginForm.value|json}}
+  Username valid:{{username.valid}}
+  Username Touched:{{username.touched}}
+  Username Dirty:{{username.dirty}}
+  Username value:{{username.value}}
+  password valid:{{password.valid}}
+  password Touchced:{{password.touched}}
+  password Dirty:{{password.dirty}}
+  password value:{{password.value}}
+</pre> -->

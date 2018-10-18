@@ -23,7 +23,7 @@ export class EmpComponent implements OnInit {
     // this.getEmployeeById();
     //this.deleteEmployee();
     //this.updateEmployee();
-    this.saveEmployee();
+    //this.saveEmployee();
   }
   getEmployees() {
     this._empService
