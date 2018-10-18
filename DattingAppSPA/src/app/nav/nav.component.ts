@@ -16,8 +16,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {}
 
-  login() {
-    debugger;
+  login() {   
     if (this.user == null) {
       alert("model is null");
       return false;
@@ -28,6 +27,7 @@ export class NavComponent implements OnInit {
       },
       error => {
         alert("failed to login");
+        console.log(error);
       }
     );
   }

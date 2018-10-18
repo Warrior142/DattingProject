@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using DattingApp.API.Data_Layer;
+using DattingApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -50,10 +53,10 @@ namespace DattingApp.API {
                 .AddJwtBearer (Options => {
 
                     Options.TokenValidationParameters = new TokenValidationParameters {
-                        ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey (key),
-                            ValidateIssuer = false,
-                            ValidateAudience = false
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey (key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
                     };
                 });
         }
@@ -63,9 +66,19 @@ namespace DattingApp.API {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
             } else {
-                app.UseExceptionHandler ("/Home/Error");
-                app.UseHsts ();
+                app.UseExceptionHandler (builder => {
+                    builder.Run (async context => {
+                        context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature> ();
+                        if (error != null) {
+                            context.Response.addApplicationError (error.Error.Message);
+                            await context.Response.WriteAsync (error.Error.Message);
+                        }
+                    });
+                });
+                // app.UseHsts ();
             }
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger ();
 

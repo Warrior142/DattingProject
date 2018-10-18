@@ -13,7 +13,6 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(model: User): Observable<any> {
-    debugger;
     return this.httpClient
       .post<any>(
         `${Constant.baseUrl + "auth/login/"}`,
@@ -35,7 +34,6 @@ export class AuthService {
   }
 
   register(model: User): Observable<any> {
-    debugger;
     return this.httpClient
       .post<any>(
         `${Constant.baseUrl + "auth/register/"}`,
@@ -50,7 +48,6 @@ export class AuthService {
         catchError(this.handleError)
       );
   }
-
   private handleError(errorResponse: HttpErrorResponse) {
     if (errorResponse.error instanceof ErrorEvent) {
       console.error("Client Side Error:", errorResponse.error.message);
@@ -59,4 +56,20 @@ export class AuthService {
     }
     return throwError("Something bad happened; please try again later.");
   }
+  // private handleError(error: HttpErrorResponse) {
+  //   const applicationError = error.headers.get("Application-Error");
+  //   if (applicationError) {
+  //     return throwError(applicationError);
+  //   }
+  //   const serverError = error;
+  //   let modelStateErrors = "";
+  //   if (serverError) {
+  //     for (const key in serverError) {
+  //       if (serverError[key]) {
+  //         modelStateErrors += serverError[key] + "\n";
+  //       }
+  //     }
+  //   }
+  //   return throwError(modelStateErrors || "Server error");
+  // }
 }

@@ -25,7 +25,8 @@ namespace DattingApp.API.Controllers {
             if (!ModelState.IsValid)
                 return BadRequest (ModelState);
 
-            userForRegistor.Username = userForRegistor.Username.ToLower ();
+            if (!string.IsNullOrEmpty (userForRegistor.Username))
+                userForRegistor.Username = userForRegistor.Username.ToLower ();
             if (await _repo.UserExists (userForRegistor.Username))
                 return BadRequest ("User is already taken");
 
@@ -39,7 +40,7 @@ namespace DattingApp.API.Controllers {
         }
 
         [HttpPost ("login")]
-        public async Task<IActionResult> Login ([FromBody] UserForLoginDto userForLoginDto) {
+        public async Task<IActionResult> Login ([FromBody] UserForLoginDto userForLoginDto) {            
             var userFromRepo = await _repo.Login (userForLoginDto.Username.ToLower (), userForLoginDto.Password);
             if (userFromRepo == null) {
                 return Unauthorized ();
