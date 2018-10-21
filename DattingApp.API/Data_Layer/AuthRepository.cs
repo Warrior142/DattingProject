@@ -10,14 +10,18 @@ namespace DattingApp.API.Data_Layer {
             _context = context;
         }
         public async Task<Users> Login (string username, string password) {
-            var user = await _context.tbl_users.FirstOrDefaultAsync (x => x.UserName == username);
-            if (user == null)
-                return null;
-            if (!VerifyPasswordHash (password, user.PasswordHash, user.PasswordSalt))
-                return null;
+            try {
+                var user = await _context.tbl_users.FirstOrDefaultAsync (x => x.UserName == username);
+                if (user == null)
+                    return null;
+                if (!VerifyPasswordHash (password, user.PasswordHash, user.PasswordSalt))
+                    return null;
 
-            //auth success
-            return user;
+                //auth success
+                return user;
+            } catch (Exception e) {
+                throw e;
+            }
         }
 
         private bool VerifyPasswordHash (string password, byte[] passwordHash, byte[] passwordSalt) {

@@ -7,6 +7,7 @@ namespace DattingApp.API.Data_Layer {
 
         public DbSet<tbl_employee> tbl_employee { get; set; }
 
-         public DbSet<Users> tbl_users { get; set; }
+        public DbSet<Users> tbl_users { get; set; }
+        public DbSet<Photo> tbl_Photo { get; set; }
     }
 }
