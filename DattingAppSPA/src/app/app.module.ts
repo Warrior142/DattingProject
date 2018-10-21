@@ -19,6 +19,7 @@ import { MemberListComponent } from "./member-list/member-list.component";
 import { ListsComponent } from "./lists/lists.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { AuthGuard } from "./guards/auth.guard";
+import { UserService } from "./Services/user.service";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -50,7 +51,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [EmpService, AuthService, AlertifyService, AuthGuard],
+  providers: [EmpService, AuthService, AlertifyService, AuthGuard,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
