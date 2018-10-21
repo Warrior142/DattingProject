@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DattingApp.API.Data_Layer;
 using DattingApp.API.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace DattingApp.API.Controllers {
+    [Authorize]
     [Route ("api/[controller]")]
     public class UsersController : Controller {
         private readonly IDatingRepositoy _repo;

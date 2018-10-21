@@ -7,5 +7,16 @@ export class Constant {
       "Content-Type": "application/json"
     })
   };
-  
+
+  public static jwtHeaders() {
+    let token = localStorage.getItem("token");
+    if (token) {
+      return {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
+        })
+      };
+    }
+  }
 }

@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
 import { Constant } from "../shared/constant";
 import { catchError, map } from "rxjs/operators";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import { JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +17,6 @@ export class AuthService {
     private jwtHelper: JwtHelperService
   ) {}
 
-  
   login(model: User): Observable<any> {
     return this.httpClient
       .post<any>(

@@ -9,11 +9,14 @@ import { AlertifyService } from "../Services/alertify.service";
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
-  model: User = { username: "", password: "" };
+  model: any = {};
   // @Input() valueFromHome: any;
   @Output()
   cancelRegister: EventEmitter<boolean> = new EventEmitter<boolean>();
-  constructor(private _authService: AuthService,private Alertify:AlertifyService) {}
+  constructor(
+    private _authService: AuthService,
+    private Alertify: AlertifyService
+  ) {}
 
   ngOnInit() {}
 
