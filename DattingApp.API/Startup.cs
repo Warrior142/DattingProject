@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DattingApp.API.Data_Layer;
 using DattingApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,8 +43,14 @@ namespace DattingApp.API {
                 options.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection"))
             );
             services.AddCors ();
-            services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_1);
+            services.AddAutoMapper ();
+            services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_1)
+                .AddJsonOptions (
+                    options => options.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddScoped<IAuthRepository, AuthRepository> ();
+            services.AddScoped<IDatingRepositoy, DatingRepositoy> ();
 
             services.AddSwaggerGen (c => {
                 c.SwaggerDoc ("v1", new Info { Title = "My API", Version = "v1" });
@@ -93,7 +100,7 @@ namespace DattingApp.API {
             app.UseStaticFiles ();
             app.UseCookiePolicy ();
             app.UseCors (x => x.AllowAnyHeader ().AllowAnyMethod ().AllowAnyOrigin ().AllowCredentials ());
-            app.UseAuthentication();
+            app.UseAuthentication ();
             app.UseMvc ();
         }
     }
