@@ -1,13 +1,13 @@
 import { AuthGuard } from "./guards/auth.guard";
 import { ListsComponent } from "./lists/lists.component";
 import { MessagesComponent } from "./messages/messages.component";
-import { MemberListComponent } from "./member-list/member-list.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
+import { MemberListComponent } from "./members/member-list/member-list.component";
 
 export const routes: Routes = [
-  { path: "home", component: HomeComponent },
+  { path: "", component: HomeComponent },
   {
     path: "",
     runGuardsAndResolvers: "always",
@@ -18,7 +18,7 @@ export const routes: Routes = [
       { path: "lists", component: ListsComponent }
     ]
   },
-  { path: "**", redirectTo: "home", pathMatch: "full" }
+  { path: "**", redirectTo: "", pathMatch: "full" }
 ];
 
 @NgModule({

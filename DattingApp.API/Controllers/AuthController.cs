@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DattingApp.API.Controllers {
     [Route ("api/[controller]")]
+     [ApiController]
     public class AuthController : ControllerBase {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;

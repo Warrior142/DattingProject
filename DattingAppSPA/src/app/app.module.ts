@@ -15,11 +15,15 @@ import { RegisterComponent } from "./register/register.component";
 import { AlertifyService } from "./Services/alertify.service";
 import { HttpClientModule } from "@angular/common/http";
 import { JwtModule } from "@auth0/angular-jwt";
-import { MemberListComponent } from "./member-list/member-list.component";
+
 import { ListsComponent } from "./lists/lists.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { UserService } from "./Services/user.service";
+import { ErrorInterceptorProvider } from "./Services/error.interceptor";
+import { MemberListComponent } from "./members/member-list/member-list.component";
+import { MemberCardComponent } from "./members/member-card/member-card.component";
+
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -34,7 +38,8 @@ export function tokenGetter() {
     RegisterComponent,
     MemberListComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    MemberCardComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [EmpService, AuthService, AlertifyService, AuthGuard,UserService],
+  providers: [EmpService, AuthService, AlertifyService, AuthGuard,UserService,ErrorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

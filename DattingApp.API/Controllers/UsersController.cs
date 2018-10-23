@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DattingApp.API.Controllers {
     [Authorize]
     [Route ("api/[controller]")]
-    public class UsersController : Controller {
+    public class UsersController : ControllerBase {
         private readonly IDatingRepositoy _repo;
         private readonly IMapper _mapper;
 
