@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
+import { TabsModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { EmpComponent } from "./employee/emp.component";
@@ -23,7 +23,10 @@ import { UserService } from "./Services/user.service";
 import { ErrorInterceptorProvider } from "./Services/error.interceptor";
 import { MemberListComponent } from "./members/member-list/member-list.component";
 import { MemberCardComponent } from "./members/member-card/member-card.component";
-
+import { MemberDetailsComponent } from './members/member-details/member-details.component';
+import { MemberDetailResolver } from "./_resolvers/member-details.resolver";
+import { MemberListResolver } from "./_resolvers/member-list.resolver";
+import { NgxGalleryModule } from 'ngx-gallery';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -39,7 +42,9 @@ export function tokenGetter() {
     MemberListComponent,
     ListsComponent,
     MessagesComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberDetailsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -48,6 +53,8 @@ export function tokenGetter() {
     NgxSpinnerModule,
     HttpClientModule,
     FormsModule,
+    TabsModule.forRoot(),
+    NgxGalleryModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -56,7 +63,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [EmpService, AuthService, AlertifyService, AuthGuard,UserService,ErrorInterceptorProvider],
+  providers: [EmpService, AuthService, AlertifyService, AuthGuard,UserService,ErrorInterceptorProvider,MemberDetailResolver,MemberListResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
